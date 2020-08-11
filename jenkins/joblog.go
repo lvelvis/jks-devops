@@ -11,6 +11,7 @@ func SaveConsoleText(jobConsoleText  string ) (logConsoleUrl string) {
 	logname := RandName() + ".txt"
 	logConsoleUrl = "http://jks-devops.mobileztgame.com/" + logname
 	f, err := os.OpenFile("/usr/local/jks-devops/logs/"+logname, os.O_WRONLY|os.O_TRUNC|os.O_CREATE, 0644)
+	//f, err := os.OpenFile("logs/"+logname, os.O_WRONLY|os.O_TRUNC|os.O_CREATE, 0644)
 	if err != nil {
 		log.Fatal(err)
 	}

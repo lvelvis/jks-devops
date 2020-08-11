@@ -116,5 +116,5 @@ END:
 		panic(err)
 	}
 	jobLogUrl = jenkins.SaveConsoleText(buildResult.GetConsoleOutput())
-	wechat.SendWebChat("测试离线发布", app, jobStatus, branch, commitid, jobLogUrl + "consoleText", jobStartTime)
+	wechat.SendWebChat("测试离线发布", app, jobStatus, branch, commitid, jobLogUrl, jobStartTime)
 }
