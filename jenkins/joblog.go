@@ -9,7 +9,7 @@ import (
 func SaveConsoleText(jobConsoleText string) {
 	//创建日志文件
 	logname := RandName() + ".txt"
-	f, err := os.OpenFile("logs/"+logname, os.O_WRONLY|os.O_TRUNC|os.O_CREATE, 0644)
+	f, err := os.OpenFile("/usr/local/jks-devops/logs/"+logname, os.O_WRONLY|os.O_TRUNC|os.O_CREATE, 0644)
 	if err != nil {
 		log.Fatal(err)
 	}
