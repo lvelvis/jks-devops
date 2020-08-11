@@ -1,0 +1,247 @@
+2020/08/11 16:42:51 joblog.go:27: Started by user liukui
+Obtained Jenkinsfile from git git@172.28.172.115:ops/go_admin_new.git
+Running in Durability level: MAX_SURVIVABILITY
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Still waiting to schedule task
+‘jnlp-wh2k8’ is offline
+Agent jnlp-wh2k8 is provisioned from template Kubernetes Pod Template
+Agent specification [Kubernetes Pod Template] (jenkins-slave): 
+* [jnlp] 172.28.200.2/ztgame/jks-slave:v1(resourceRequestCpu: 800m, resourceRequestMemory: 4Gi, resourceLimitCpu: 1000m, resourceLimitMemory: 6Gi)
+yaml:
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 1
+        preference:
+          matchExpressions:
+          - key: node-role.kubernetes.io/worker
+            operator: In
+            values:
+            - ci
+  tolerations:
+  - key: "node.kubernetes.io/ci"
+    operator: "Exists"
+    effect: "NoSchedule"
+  - key: "node.kubernetes.io/ci"
+    operator: "Exists"
+    effect: "PreferNoSchedule"
+  containers:
+  - name: "pandora-golang"
+    resources:
+      requests:
+        ephemeral-storage: "1Gi"
+      limits:
+        ephemeral-storage: "10Gi"
+  securityContext:
+    fsGroup: 1000"
+
+Running on jnlp-wh2k8 in /home/jenkins/agent/workspace/go_admin
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+using credential 028f6876-1799-420c-b9e1-51d8dcfc6f50
+Cloning the remote Git repository
+Cloning repository git@172.28.172.115:ops/go_admin_new.git
+ > git init /home/jenkins/agent/workspace/go_admin # timeout=10
+Fetching upstream changes from git@172.28.172.115:ops/go_admin_new.git
+ > git --version # timeout=10
+using GIT_SSH to set credentials jenkins-ssh-keys
+ > git fetch --tags --progress git@172.28.172.115:ops/go_admin_new.git +refs/heads/*:refs/remotes/origin/*
+ > git config remote.origin.url git@172.28.172.115:ops/go_admin_new.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url git@172.28.172.115:ops/go_admin_new.git # timeout=10
+Fetching upstream changes from git@172.28.172.115:ops/go_admin_new.git
+using GIT_SSH to set credentials jenkins-ssh-keys
+ > git fetch --tags --progress git@172.28.172.115:ops/go_admin_new.git +refs/heads/*:refs/remotes/origin/*
+Checking out Revision f10addb95c2f19fa549fd0174572d2f3fbd0148e (refs/remotes/origin/master)
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+ > git rev-parse refs/remotes/origin/origin/master^{commit} # timeout=10
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f f10addb95c2f19fa549fd0174572d2f3fbd0148e
+Commit message: "Update Jenkinsfile_JD"
+ > git rev-list --no-walk f10addb95c2f19fa549fd0174572d2f3fbd0148e # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ echo master
+[Pipeline] sh
++ echo
+[Pipeline] sh
++ helm --tls --tiller-namespace=kube-system --home=/root/.helm ls
++ grep go-admin-ui
++ wc -l
+[Pipeline] sh
++ echo roll-update
+[Pipeline] sh
++ echo f10addb95c2f19fa549fd0174572d2f3fbd0148e
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Git代码拉取)
+[Pipeline] git
+using credential 028f6876-1799-420c-b9e1-51d8dcfc6f50
+Fetching changes from the remote Git repository
+ > git rev-parse --is-inside-work-tree # timeout=10
+ > git config remote.origin.url git@172.28.172.115:ops/go_admin_new.git # timeout=10
+Fetching upstream changes from git@172.28.172.115:ops/go_admin_new.git
+ > git --version # timeout=10
+using GIT_SSH to set credentials jenkins-ssh-keys
+ > git fetch --tags --progress git@172.28.172.115:ops/go_admin_new.git +refs/heads/*:refs/remotes/origin/*
+Checking out Revision f10addb95c2f19fa549fd0174572d2f3fbd0148e (refs/remotes/origin/master)
+Commit message: "Update Jenkinsfile_JD"
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (构建应用镜像)
+[Pipeline] container
+[Pipeline] {
+[Pipeline] sh
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+ > git rev-parse refs/remotes/origin/origin/master^{commit} # timeout=10
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f f10addb95c2f19fa549fd0174572d2f3fbd0148e
+ > git branch -a -v --no-abbrev # timeout=10
+ > git checkout -b master f10addb95c2f19fa549fd0174572d2f3fbd0148e
++ cd /home/jenkins/agent/workspace/go_admin
++ echo f10addb95c2f19fa549fd0174572d2f3fbd0148e
++ cut -c1-8
++ export APP_VERSION=f10addb9
++ git reset --hard f10addb95c2f19fa549fd0174572d2f3fbd0148e
+HEAD is now at f10addb Update Jenkinsfile_JD
++ git branch -a -v --no-abbrev
+* master                f10addb95c2f19fa549fd0174572d2f3fbd0148e Update Jenkinsfile_JD
+  remotes/origin/master f10addb95c2f19fa549fd0174572d2f3fbd0148e Update Jenkinsfile_JD
++ docker login -u harbor-k8s --password pnMZrf5m9uCIU29g 172.28.200.2
+WARNING! Using --password via the CLI is insecure. Use --password-stdin.
+WARNING! Your password will be stored unencrypted in /home/jenkins/agent/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
++ cd /var/jenkins_app/dockerfile/go_admin_ui
++ rm -rf /var/jenkins_app/dockerfile/go_admin_ui/go-admin
++ cp -rf /home/jenkins/agent/workspace/go_admin /var/jenkins_app/dockerfile/go_admin_ui/go-admin
++ docker build -t 172.28.200.2/ztgame/go_admin_ui:f10addb9 .
+Sending build context to Docker daemon  653.8kB
+Step 1/5 : FROM nginx
+ ---> a1523e859360
+Step 2/5 : COPY go-admin.conf   /etc/nginx/conf.d/go-admin.conf
+ ---> Using cache
+ ---> d5e08abf6ec0
+Step 3/5 : COPY go-admin /etc/nginx/html/go-admin
+ ---> 9c7bcfcb5d0a
+Step 4/5 : COPY nginx.conf /etc/nginx/nginx.conf
+ ---> 9418b66587f5
+Step 5/5 : RUN chown -R nginx. /etc/nginx/html/go-admin
+ ---> Running in f4fdf7a0cf38
+Removing intermediate container f4fdf7a0cf38
+ ---> 385bdfb329e2
+Successfully built 385bdfb329e2
+Successfully tagged 172.28.200.2/ztgame/go_admin_ui:f10addb9
++ docker push 172.28.200.2/ztgame/go_admin_ui:f10addb9
+The push refers to repository [172.28.200.2/ztgame/go_admin_ui]
+702d2ef25237: Preparing
+3556ac0bac55: Preparing
+f96899d67712: Preparing
+fb07b76170d9: Preparing
+318be7aea8fc: Preparing
+fe08d5d042ab: Preparing
+f2cb0ecef392: Preparing
+f2cb0ecef392: Waiting
+318be7aea8fc: Layer already exists
+fb07b76170d9: Layer already exists
+fe08d5d042ab: Layer already exists
+f2cb0ecef392: Layer already exists
+3556ac0bac55: Pushed
+f96899d67712: Pushed
+702d2ef25237: Pushed
+f10addb9: digest: sha256:8d440f3dfee1c79b0c9e755f1f8c3c21c2f58f3f08ac67adb7011eb3abe62542 size: 1782
++ docker rmi 172.28.200.2/ztgame/go_admin_ui:f10addb9
+Untagged: 172.28.200.2/ztgame/go_admin_ui:f10addb9
+Untagged: 172.28.200.2/ztgame/go_admin_ui@sha256:8d440f3dfee1c79b0c9e755f1f8c3c21c2f58f3f08ac67adb7011eb3abe62542
+Deleted: sha256:385bdfb329e29d9bd56a2f53aeeee22f8e31361a5c483c9c8627672ae74372e4
+Deleted: sha256:726e40d50892fd2105544760d5029928351870504d33969b78a43faed1f4ce98
+Deleted: sha256:9418b66587f5f6b3abb31f5def197cfa8447c005e6fac2cb49f2d3b318e55f24
+Deleted: sha256:5f7f691d2882938787c921432590deacc69cd47b19893a2d758d8375d814a3d1
+Deleted: sha256:9c7bcfcb5d0a5c5ed7610d78264928be073158336af0c41e3dced19f1440bc4d
+Deleted: sha256:ab29ac4b5ae9dace8bac0f083fd16563c763e231f9927c7282cc1001f93d3780
+[Pipeline] }
+[Pipeline] // container
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (线上发布)
+[Pipeline] parallel
+[Pipeline] { (Branch: Deploy go-admin.ztgame.com to online-k8s)
+[Pipeline] stage
+[Pipeline] { (Deploy go-admin.ztgame.com to online-k8s)
+[Pipeline] container
+[Pipeline] {
+[Pipeline] sh
++ echo ##########go_admin_ui准备发布##########
+##########go_admin_ui准备发布##########
++ echo f10addb95c2f19fa549fd0174572d2f3fbd0148e
++ cut -c1-8
++ export APP_VERSION=f10addb9
++ cd /var/jenkins_app/helm_update/go-admin-ui
++ printf ReplicaCount='1'
+Image_repository=172.28.200.2/ztgame/go_admin_ui
+Version=f10addb9
+Image_tag=f10addb9
++ bash build_result.sh
++ export HELM_TLS_ENABLE=true
++ [ 1 -eq 0 ]
++ helm --tls --tiller-namespace=kube-system --home=/root/.helm upgrade --namespace=default go-admin-ui -f values.yaml .
+Release "go-admin-ui" has been upgraded.
+LAST DEPLOYED: Tue Aug 11 08:42:50 2020
+NAMESPACE: default
+STATUS: DEPLOYED
+
+RESOURCES:
+==> v1/Deployment
+NAME         READY  UP-TO-DATE  AVAILABLE  AGE
+go-admin-ui  2/2    2           2          169d
+
+==> v1/Pod(related)
+NAME                         READY  STATUS   RESTARTS  AGE
+go-admin-ui-cc958b57f-6szrx  1/1    Running  0         47h
+go-admin-ui-cc958b57f-wcz6r  1/1    Running  0         47h
+
+==> v1/Service
+NAME         TYPE       CLUSTER-IP     EXTERNAL-IP  PORT(S)  AGE
+go-admin-ui  ClusterIP  172.28.190.85  <none>       80/TCP   169d
+
+==> v1beta1/Ingress
+NAME         HOSTS                ADDRESS  PORTS  AGE
+go-admin-ui  go-admin.ztgame.com  80       169d
+
+
+NOTES:
+1. Get the application URL by running these commands:
+
+[Pipeline] }
+[Pipeline] // container
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (版本回滚)
+Stage "版本回滚" skipped due to when conditional
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
+

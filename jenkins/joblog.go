@@ -1,0 +1,28 @@
+package jenkins
+
+import (
+	"io"
+	"log"
+	"os"
+)
+
+func SaveConsoleText(jobConsoleText string) {
+	//创建日志文件
+	logname := RandName() + ".txt"
+	f, err := os.OpenFile("logs/"+logname, os.O_WRONLY|os.O_TRUNC|os.O_CREATE, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
+	//完成后，延迟关闭
+	defer f.Close()
+	// 设置日志输出到文件
+	// 定义多个写入器
+	writers := []io.Writer{
+		f,
+		os.Stdout}
+	fileAndStdoutWriter := io.MultiWriter(writers...)
+
+	logger := log.New(fileAndStdoutWriter, "", log.Ldate|log.Ltime|log.Lshortfile)
+
+	logger.Println(jobConsoleText)
+}
