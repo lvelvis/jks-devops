@@ -27,5 +27,5 @@ func SaveConsoleText(jobConsoleText  string ) (logConsoleUrl string) {
 	logger := log.New(fileAndStdoutWriter, "", log.Ldate|log.Ltime|log.Lshortfile)
 
 	logger.Println(jobConsoleText)
-	return
+	return logConsoleUrl
 }
