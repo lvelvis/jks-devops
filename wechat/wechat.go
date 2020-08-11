@@ -43,7 +43,7 @@ var cfg *ini.File
 //InitConfig 初始化加载企业微信配置
 func InitConfig() {
 	var err error
-	cfg, err = ini.LooseLoad("wechat/wechat.ini")
+	cfg, err = ini.LooseLoad("/usr/local/jks-devops/wechat/wechat.ini")
 	if err != nil {
 		log.Fatalf("Fail to parse 'wechat.ini': %v", err)
 	}
