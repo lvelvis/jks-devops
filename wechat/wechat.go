@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"time"
 	"gopkg.in/ini.v1"
 )
@@ -43,7 +44,8 @@ var cfg *ini.File
 //InitConfig 初始化加载企业微信配置
 func InitConfig() {
 	var err error
-	cfg, err = ini.LooseLoad("/usr/local/jks-devops/wechat/wechat.ini")
+	//cfg, err = ini.LooseLoad("/usr/local/jks-devops/wechat/wechat.ini")
+	cfg, err = ini.LooseLoad(os.Getenv("JENKINS_WeChat_INI"))
 	if err != nil {
 		log.Fatalf("Fail to parse 'wechat.ini': %v", err)
 	}
