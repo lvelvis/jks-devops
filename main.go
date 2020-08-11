@@ -89,7 +89,7 @@ func main() {
 
 			jobCurID = int(CurJob.Executable.Number)
 
-			jobLogUrl = CurJob.Executable.URL
+			//jobLogUrl = CurJob.Executable.URL
 			switch jobCurID {
 			case 0:
 				continue
@@ -115,6 +115,6 @@ END:
 	if err != nil {
 		panic(err)
 	}
-	jenkins.SaveConsoleText(buildResult.GetConsoleOutput())
+	jobLogUrl = jenkins.SaveConsoleText(buildResult.GetConsoleOutput())
 	wechat.SendWebChat("测试离线发布", app, jobStatus, branch, commitid, jobLogUrl + "consoleText", jobStartTime)
 }

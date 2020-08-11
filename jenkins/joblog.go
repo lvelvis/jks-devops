@@ -6,9 +6,10 @@ import (
 	"os"
 )
 
-func SaveConsoleText(jobConsoleText string) {
+func SaveConsoleText(jobConsoleText  string ) (logConsoleUrl string) {
 	//创建日志文件
 	logname := RandName() + ".txt"
+	logConsoleUrl = "http://jks-devops.mobileztgame.com/" + logname
 	f, err := os.OpenFile("/usr/local/jks-devops/logs/"+logname, os.O_WRONLY|os.O_TRUNC|os.O_CREATE, 0644)
 	if err != nil {
 		log.Fatal(err)
@@ -25,4 +26,5 @@ func SaveConsoleText(jobConsoleText string) {
 	logger := log.New(fileAndStdoutWriter, "", log.Ldate|log.Ltime|log.Lshortfile)
 
 	logger.Println(jobConsoleText)
+	return
 }
