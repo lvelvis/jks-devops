@@ -12,4 +12,5 @@
 *.out
 .idea
 go
-./logs
+logs
+*.txt
