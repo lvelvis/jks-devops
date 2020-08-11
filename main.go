@@ -100,7 +100,6 @@ func main() {
 				}
 				jobStatus = JobCheckInfo.Status
 				jobStartTime = JobCheckInfo.StartTime
-				fmt.Printf("job构建ID为：%d\n", jobCurID)
 				goto END
 			}
 
@@ -116,5 +115,6 @@ END:
 		panic(err)
 	}
 	jobLogUrl = jenkins.SaveConsoleText(buildResult.GetConsoleOutput())
-	wechat.SendWebChat("测试离线发布", app, jobStatus, branch, commitid, jobLogUrl, jobStartTime)
+	fmt.Println("url为",jobLogUrl)
+	wechat.SendWebChat("自动化发布", app, jobStatus, branch, commitid, jobLogUrl, jobStartTime)
 }

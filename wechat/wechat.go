@@ -103,7 +103,7 @@ func messages(touser string, toparty int, agentid int, content string) string {
 }
 
 //SendWebChat 企业微信报警
-func SendWebChat(jobContent, jobName, jobStatus, branch, commitid, logUrl string, starttime int64) {
+func SendWebChat(jobContent, jobName, jobStatus, branch, commitid, logUrl string, startTime int64) {
 	InitConfig()
 
 	accessToken := GetAccessToken(WebChatCfg.CorpID, WebChatCfg.CorpSecret)
@@ -114,7 +114,7 @@ func SendWebChat(jobContent, jobName, jobStatus, branch, commitid, logUrl string
 		"[构建分支]" + ": " + branch + "\n" +
 		"[构建HashID]" + ": " + commitid + "\n" +
 		"[构建日志]" + ": " + logUrl + "\n" +
-		"[构建时间]" + ": " + time.Unix(starttime/1000, 0).Format("2006-01-02 15:04:05")
+		"[构建时间]" + ": " + time.Unix(startTime/1000, 0).Format("2006-01-02 15:04:05")
 
 	msg := messages(WebChatCfg.ToUser, WebChatCfg.ToParty, WebChatCfg.AgentID, FullContent)
 	SendMessage(accessToken, msg)
