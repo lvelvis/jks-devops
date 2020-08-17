@@ -76,7 +76,7 @@ func main() {
 		"CommitID": commitid,
 	}
 
-	if action != "" || branch != "" || commitid != "" {
+	if action != "nil" && branch != "nil" && commitid != "nil" {
 		//var wg sync.WaitGroup
 
 		queueID, _ := JksClient.BuildJob(app, para)
