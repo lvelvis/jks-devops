@@ -89,7 +89,6 @@ func main() {
 
 			jobCurID = int(CurJob.Executable.Number)
 
-			//jobLogUrl = CurJob.Executable.URL
 			switch jobCurID {
 			case 0:
 				continue

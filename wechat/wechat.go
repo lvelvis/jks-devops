@@ -22,7 +22,6 @@ type MESSAGES struct {
 	Msgtype string `json:"msgtype"`
 	Agentid int    `json:"agentid"`
 	Text    struct {
-		//Subject string `json:"subject"`
 		Content string `json:"content"`
 	} `json:"text"`
 	Safe int `json:"safe"`
@@ -68,7 +67,7 @@ func GetAccessToken(corpid, corpsecret string) string {
 	req, _ := client.Get(gettoken_url)
 	defer req.Body.Close()
 	body, _ := ioutil.ReadAll(req.Body)
-	//fmt.Printf("\n%q",string(body))
+
 	var jsonstr JSON
 	json.Unmarshal([]byte(body), &jsonstr)
 	return jsonstr.Access_token
@@ -96,7 +95,6 @@ func messages(touser string, toparty int, agentid int, content string) string {
 		Agentid: agentid,
 		Safe:    0,
 		Text: struct {
-			//Subject string `json:"subject"`
 			Content string `json:"content"`
 		}{Content: content},
 	}
